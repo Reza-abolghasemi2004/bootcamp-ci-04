@@ -1,0 +1,33 @@
+kind: pipeline
+type: docker
+name: build-push
+
+steps:
+
+  - name: install
+    image: node:20-alpine
+    commands:
+      - npm ci
+
+  - name: test
+    image: node:20-alpine
+    commands:
+      - npm test
+
+  - name: docker-build-push
+    image: plugins/docker
+    settings:
+      registry: gitea.rezaabolghasemi.ir
+      repo: gitea.rezaabolghasemi.ir/reza/bootcamp-ci-02
+      username:
+        from_secret: registry_username
+      password:
+        from_secret: registry_password
+      tags:
+        - latest
+
+trigger:
+  branch:
+    - main
+  event:
+    - push
