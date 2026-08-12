@@ -12,21 +12,3 @@ test("GET /sum/2/3 -> 5", async () => {
 
     expect(res.body.result).toBe(5);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
